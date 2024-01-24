@@ -8,6 +8,23 @@ class Overworld {
 
   startGameLoop() {
     const step = () => {
+      // clear canvas
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+      // lower 이미지 그리기
+      this.map.drawLowerImage(this.ctx);
+      
+      // gameObjects 그리기
+      Object.values(this.map.gameObjects).forEach((gameObject) => {
+        // gameObject.x += 0.05;
+        gameObject.sprite.draw(this.ctx);
+
+      });
+    
+
+      // upper 이미지 그리기
+      this.map.drawUpperImage(this.ctx);
+      
       requestAnimationFrame(step);
     };
     step();
@@ -15,7 +32,7 @@ class Overworld {
 
 
   init() { //this is the first thing that run
-    this.map = new OverworldMap(window.OverworldMap.DemoRoom);
+    this.map = new OverworldMap(window.OverworldMaps.Kitchen);
     this.startGameLoop();
   }
 
