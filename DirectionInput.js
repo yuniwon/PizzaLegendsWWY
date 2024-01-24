@@ -3,10 +3,10 @@ class DirectionInput{
    this.heldDirections = []; 
 
    this.map = {
-    "w" : "up",
-    "a" : "left",
-    "s" : "down",
-    "d" : "right",
+    "w" : "Up",
+    "a" : "Left",
+    "s" : "Down",
+    "d" : "Right",
    }
   }
 
