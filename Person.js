@@ -4,7 +4,7 @@ class Person extends GameObject{
     // this.name = config.name;
     this.movingProgressRemaining = 16; // 16px 움직여야 멈춤
 
-    
+
     this.directionUpdate = {
       "down" : ["y" , 1],
       "up" : ["y" , -1],
@@ -13,8 +13,13 @@ class Person extends GameObject{
     }
   }
 
-  update(){
+  update(state){
     this.updatePosition();
+    if(this.movingProgressRemaining === 0 && state.arrow){ // 만약 움직이는 중이 아니고, 방향키가 눌렸다면
+      //
+      this.direction = state.arrow; // 방향을 바꿈
+      this.movingProgressRemaining = 16; // 움직임을 시작함
+    }
   }
 
   updatePosition(){

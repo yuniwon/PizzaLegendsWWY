@@ -26,6 +26,7 @@ window.OverworldMaps = {
       hero: new Person({
         x: utils.withGrid(5),
         y: utils.withGrid(6),
+        direction: DirectionInput.heldDirection,
       }),
       npc1: new GameObject({
         x: utils.withGrid(7),
