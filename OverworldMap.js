@@ -1,19 +1,49 @@
-
 // 월드맵에 대한 데이터를 담는 클래스
 class OverworldMap {
   constructor(config) {
-    this.gameObjects = config.gameObjects 
+    this.gameObjects = config.gameObjects
+    this.walls = config.walls || {};
+
     this.lowerImage = new Image(); // lower 레이어
     this.lowerImage.src = config.lowerSrc;
+
     this.upperImage = new Image(); // upper 레이어
     this.upperImage.src = config.upperSrc;
   }
 
-  drawLowerImage(ctx) { // lower 레이어 그리기
-    ctx.drawImage(this.lowerImage, 0, 0)
+  drawLowerImage(ctx, cameraPerson) { // lower 레이어 그리기
+    ctx.drawImage(this.lowerImage,
+      utils.withGrid(10.5) - cameraPerson.x,
+      utils.withGrid(6) - cameraPerson.y)
   }
-  drawUpperImage(ctx) { // upper 레이어 그리기
-    ctx.drawImage(this.upperImage, 0, 0)
+  drawUpperImage(ctx, cameraPerson) { // upper 레이어 그리기
+    ctx.drawImage(this.upperImage,
+      utils.withGrid(10.5) - cameraPerson.x,
+      utils.withGrid(6) - cameraPerson.y)
+  }
+
+  isSpaceTaken(currnetX,currentY,direction){ // 현재 위치에서 방향을 보고 있는 곳에 벽이 있는지 확인하는 함수
+    const [nextX, nextY] = utils.nextPosition(currnetX, currentY, direction);
+    return this.walls[`${nextX},${nextY}`];
+  }
+
+  mountObject(){ // 게임 오브젝트를 맵에 등록하는 함수
+    Object.values(this.gameObjects).forEach((gameObject) => {
+      gameObject.mount(this);
+    });
+
+  }
+
+  addwall(x, y) { // 벽을 추가하는 함수
+    this.walls[`${x},${y}`] = true;
+  }
+  removeWall(x, y) { // 벽을 제거하는 함수
+    delete this.walls[`${x},${y}`]; 
+  }
+  moveWall(x, y, direction) { // 벽을 이동하는 함수
+    this.removeWall(x, y);
+    const [nextX, nextY] = utils.nextPosition(x, y, direction);
+    this.addwall(nextX, nextY);
   }
 }
 // 월드맵 데이터를 담는 클래스
@@ -33,9 +63,15 @@ window.OverworldMaps = {
       }),
       npc1: new Person({
         x: utils.withGrid(7),
-        y: utils.withGrid(8),
+        y: utils.withGrid(9),
         src: "/images/characters/people/npc1.png",
       }),
+    },
+    walls: {
+      [utils.asGridCords(7, 6)]: true,
+      [utils.asGridCords(8, 6)]: true,
+      [utils.asGridCords(7, 7)]: true,
+      [utils.asGridCords(8, 7)]: true,
     },
 
   },
@@ -44,7 +80,7 @@ window.OverworldMaps = {
     lowerSrc: "/images/maps/KitchenLower.png",
     upperSrc: "/images/maps/KitchenUpper.png",
 
-    gameObjects: { 
+    gameObjects: {
       hero: new GameObject({
         x: 3,
         y: 5,
@@ -60,7 +96,7 @@ window.OverworldMaps = {
         src: "/images/characters/people/npc3.png",
       }),
     },
-
   },
+
 
 }
