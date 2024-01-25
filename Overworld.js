@@ -1,3 +1,4 @@
+// 설명 : OverworldMap을 생성하고, 그 위에 GameObject를 그리는 역할을 한다.
 class Overworld {
   constructor(config) {
     this.element = config.element;
@@ -5,7 +6,7 @@ class Overworld {
     this.ctx = this.canvas.getContext("2d");
     this.map = null;
   }
-
+ // 게임 루프를 시작하는 함수 ------------------------------------------
   startGameLoop() {
     const step = () => {
       // clear canvas
@@ -32,16 +33,14 @@ class Overworld {
     step();
   }
 
-
-  init() { //this is the first thing that run
+ // 게임을 초기화하는 함수 ------------------------------------------
+  init() { // 게임을 시작하면 가장먼저 실행 됨
+    // 게임 맵 오브젝트 생성
     this.map = new OverworldMap(window.OverworldMaps.DemoRoom);
-
+    // 인풋을 받는 오브젝트 생성
     this.DirectionInput = new DirectionInput();
     this.DirectionInput.init();
-
+    // 게임 루프 시작
     this.startGameLoop();
   }
-
-
-
 }

@@ -1,22 +1,24 @@
 
-// 월드맵 데이터를 담는 클래스
+// 월드맵에 대한 데이터를 담는 클래스
 class OverworldMap {
   constructor(config) {
-    this.gameObjects = config.gameObjects
-    this.lowerImage = new Image();
+    this.gameObjects = config.gameObjects 
+    this.lowerImage = new Image(); // lower 레이어
     this.lowerImage.src = config.lowerSrc;
-    this.upperImage = new Image();
+    this.upperImage = new Image(); // upper 레이어
     this.upperImage.src = config.upperSrc;
   }
 
-  drawLowerImage(ctx) {
+  drawLowerImage(ctx) { // lower 레이어 그리기
     ctx.drawImage(this.lowerImage, 0, 0)
   }
-  drawUpperImage(ctx) {
+  drawUpperImage(ctx) { // upper 레이어 그리기
     ctx.drawImage(this.upperImage, 0, 0)
   }
 }
-
+// 월드맵 데이터를 담는 클래스
+// window를 사용하면 다른 파일에서도 사용할 수 있음 
+// window는 전역 객체이므로, window.OverworldMaps로 접근 가능
 window.OverworldMaps = {
   // 데모룸 맵 ------------------------------------------
   DemoRoom: {
