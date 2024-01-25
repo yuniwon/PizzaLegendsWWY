@@ -8,6 +8,8 @@ class Person extends GameObject {
     super(config);
     // this.name = config.name;
     this.movingProgressRemaining = 0; // 16px 움직여야 멈춤 // 16px은 1타일의 크기
+    this.isStanding = false; // 서있는 상태인지 아닌지
+
     this.isPlayerControlled = config.isPlayerControlled || false; // 플레이어가 조작하는 캐릭터인지 아닌지
     // 캐릭터의 방향 ------------------------------------------
     this.directionUpdate = {
@@ -51,10 +53,12 @@ class Person extends GameObject {
     }
 
     if (behavior.type === "stand") {
+      this.isStanding = true;
       setTimeout(() => {
         utils.emitEvent("PersonStandComplete", {
           whoId: this.id,
         });
+        this.isStanding = false;
       }, behavior.time);
     }
   };

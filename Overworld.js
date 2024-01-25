@@ -49,15 +49,35 @@ class Overworld {
     step();
   }
 
+  bindActionInput() {
+    new KeyPressListener("Enter", () =>{
+      // 말 걸 캐릭터가 존재하는지
+      this.map.checkForActionCutscene();
+    })
+  };
+
  // 게임을 초기화하는 함수 ------------------------------------------
   init() { // 게임을 시작하면 가장먼저 실행 됨
     // 게임 맵 오브젝트 생성
     this.map = new OverworldMap(window.OverworldMaps.DemoRoom);
     this.map.mountObject();
+
+    this.bindActionInput();
+
     // 인풋을 받는 오브젝트 생성
     this.DirectionInput = new DirectionInput();
     this.DirectionInput.init();
     // 게임 루프 시작
     this.startGameLoop();
+
+    // 이벤트 컷신
+    // this.map.startCutScene([
+    //   {who: "hero", type: "walk", direction: "Down",},
+    //   {who: "hero", type: "walk", direction: "Down",},
+    //   {who: "npcA", type: "walk", direction: "Left",},
+    //   {who: "npcA", type: "walk", direction: "Left",},
+    //   {who: "npcA", type: "stand", direction: "Up", time: 800},
+    //   {type: "TextMessage", text: "넌 못지나간다!!"},
+    // ]);
   }
 }

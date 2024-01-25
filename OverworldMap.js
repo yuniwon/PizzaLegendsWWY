@@ -38,6 +38,34 @@ class OverworldMap {
 
   }
 
+  async startCutScene(events){ // 컷씬을 시작하는 함수
+    this.isCutScenePlaying = true;
+    // 비동기 이벤트루프 시작
+    for(let i = 0; i < events.length; i++){
+      const eventHandler = new OverworldEvent({
+        map: this,
+        event: events[i],
+      });
+      await eventHandler.init();
+    }
+    // 각 이벤트를 기다림
+    this.isCutScenePlaying = false;
+
+    // NPC들의 기본 행동으로 리셋
+    Object.values(this.gameObjects).forEach((object) => {
+      object.BehaviorLoopEvent(this);
+    });
+  }
+
+  checkForActionCutscene(){ // 말 걸 캐릭터가 존재하는지 확인하는 함수
+    const hero = this.gameObjects["hero"];
+    const nextCoords = utils.nextPosition(hero.x, hero.y, hero.direction);
+    const match = Object.values(this.gameObjects).find((object) => {
+      return object.x === nextCoords[0] && object.y === nextCoords[1];
+    });
+    console.log(match);
+  }
+
   addwall(x, y) { // 벽을 추가하는 함수
     this.walls[`${x},${y}`] = true;
   }

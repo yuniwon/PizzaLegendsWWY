@@ -34,7 +34,7 @@ class GameObject {
   async BehaviorLoopEvent(map){
 
       //더 중요한 컷씬이 있거나 아무것도 할 수 있는 구성이 없다면 아무것도 하지 마세요.
-      if(map.isCutScenePlaying || this.behaviorLoop.length === 0){ // 만약 컷씬이 실행중이거나 행동 루프가 없다면
+      if(map.isCutScenePlaying || this.behaviorLoop.length === 0 || this.isStanding){ // 만약 컷씬이 실행중이거나 행동 루프가 없다면 + 서있는 상태라면
         return; // 함수를 종료
       };
 
