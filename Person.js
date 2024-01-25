@@ -23,7 +23,7 @@ class Person extends GameObject {
       this.updatePosition();
     } else {
       // 만약 움직이는 중이 아니라면
-      if (this.isPlayerControlled && state.arrow) { // 플레이어가 컨트롤 하는 캐릭터이면서 만약 움직이는 중이 아니고, 방향키가 눌렸다면
+      if (!state.map.isCutScenePlaying && this.isPlayerControlled && state.arrow) { // 플레이어가 컨트롤 하는 캐릭터이면서 만약 움직이는 중이 아니고, 방향키가 눌렸다면
         this.startBehavior(state, { //다음 행동을 시작함
           type: "walk",
           direction: state.arrow,
@@ -39,6 +39,10 @@ class Person extends GameObject {
     this.direction = behavior.direction; // 방향을 바꿈
     if (behavior.type === "walk") {
       if (state.map.isSpaceTaken(this.x, this.y, this.direction)) { // 만약 이동하려는 곳에 장애물이 있다면
+
+        behavior.retry && setTimeout(() => { // 장애물이 있을 때 재시도를 할 수 있도록 함
+          this.startBehavior(state, behavior);
+        }, 10);
         return; // 함수를 종료
       }
       state.map.moveWall(this.x, this.y, this.direction); // 장애물을 이동시킴 //플레이어가 장애물의 위치임

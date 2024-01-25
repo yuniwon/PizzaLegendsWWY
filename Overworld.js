@@ -27,7 +27,10 @@ class Overworld {
       this.map.drawLowerImage(this.ctx, cameraPerson);
       
       // gameObjects 그리기
-      Object.values(this.map.gameObjects).forEach((gameObject) => {
+      // 오브젝트의 y좌표를 기준으로 정렬 -> 더 아래쪽에 있는 오브젝트를 나중에 그려서 이미지가 위에 있게 함
+      Object.values(this.map.gameObjects).sort((a,b) => {
+        return a.y - b.y;
+      }).forEach((gameObject) => {
         gameObject.sprite.draw(this.ctx, cameraPerson); // 스프라이트 그리기 // 카메라가 따라다닐 사람을 인자로 넘겨줌
       });
     

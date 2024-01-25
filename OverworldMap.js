@@ -82,7 +82,7 @@ window.OverworldMaps = {
         src: "/images/characters/people/npc2.png",
         behaviorLoop: [
           { type: "walk", direction: "Left",},
-          // { type: "stand", direction: "Up", time: 800},
+          { type: "stand", direction: "Up", time: 800},
           { type: "walk", direction: "Up",},
           { type: "walk", direction: "Right",},
           { type: "walk", direction: "Down",},

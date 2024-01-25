@@ -34,6 +34,7 @@ class OverworldEvent{
     }, {
       type: "walk",
       direction: this.event.direction,
+      retry: true,
     }); // 이벤트를 시작함
 
     // 맞는 사람이 걷기를 끝낼 때까지 기다림, 그리고 다음 이벤트를 시작함
