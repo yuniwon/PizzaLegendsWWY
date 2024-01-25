@@ -9,6 +9,8 @@ class OverworldMap {
 
     this.upperImage = new Image(); // upper 레이어
     this.upperImage.src = config.upperSrc;
+
+    this.isCutScenePlaying = false; // 컷씬이 실행중인지 아닌지
   }
 
   drawLowerImage(ctx, cameraPerson) { // lower 레이어 그리기
@@ -28,8 +30,10 @@ class OverworldMap {
   }
 
   mountObject(){ // 게임 오브젝트를 맵에 등록하는 함수
-    Object.values(this.gameObjects).forEach((gameObject) => {
-      gameObject.mount(this);
+    Object.keys(this.gameObjects).forEach((key) => {
+      let object = this.gameObjects[key];
+      object.id = key;
+      object.mount(this);
     });
 
   }
@@ -61,10 +65,28 @@ window.OverworldMaps = {
         y: utils.withGrid(6),
         direction: DirectionInput.heldDirection,
       }),
-      npc1: new Person({
+      npcA: new Person({
         x: utils.withGrid(7),
         y: utils.withGrid(9),
         src: "/images/characters/people/npc1.png",
+        behaviorLoop: [
+          { type: "stand", direction: "Left", time: 800},
+          { type: "stand", direction: "Up", time: 800},
+          { type: "stand", direction: "Right", time: 1200},
+          { type: "stand", direction: "Up", time: 300},
+        ],
+      }),
+      npcB: new Person({
+        x: utils.withGrid(3),
+        y: utils.withGrid(7),
+        src: "/images/characters/people/npc2.png",
+        behaviorLoop: [
+          { type: "walk", direction: "Left",},
+          // { type: "stand", direction: "Up", time: 800},
+          { type: "walk", direction: "Up",},
+          { type: "walk", direction: "Right",},
+          { type: "walk", direction: "Down",},
+        ]
       }),
     },
     walls: {
@@ -73,13 +95,11 @@ window.OverworldMaps = {
       [utils.asGridCords(7, 7)]: true,
       [utils.asGridCords(8, 7)]: true,
     },
-
   },
   // 키친 맵 ------------------------------------------
   Kitchen: {
     lowerSrc: "/images/maps/KitchenLower.png",
     upperSrc: "/images/maps/KitchenUpper.png",
-
     gameObjects: {
       hero: new GameObject({
         x: 3,

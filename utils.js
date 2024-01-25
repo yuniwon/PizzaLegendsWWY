@@ -23,5 +23,12 @@ const utils = { // 유틸리티 함수들을 모아놓은 객체
       x += size;
     }
     return [x, y];
-  }
+  },
+
+  emitEvent(name, detail){ // 이벤트를 발생시키는 함수
+    const event = new CustomEvent(name, {
+      detail,
+    });
+    document.dispatchEvent(event);
+  },
 }
