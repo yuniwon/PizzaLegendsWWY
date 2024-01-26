@@ -25,6 +25,25 @@ const utils = { // 유틸리티 함수들을 모아놓은 객체
     return [x, y];
   },
 
+  oppositeDirection(direction){ // 방향을 받아서 반대 방향을 반환
+    if(direction === "Up"){
+      return "Down";
+    }
+    if(direction === "Down"){
+      return "Up";
+    }
+    if(direction === "Left"){
+      return "Right";
+    }
+    if(direction === "Right"){
+      return "Left";
+    }
+  },
+
+  wait(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  },
+
   emitEvent(name, detail){ // 이벤트를 발생시키는 함수
     const event = new CustomEvent(name, {
       detail,

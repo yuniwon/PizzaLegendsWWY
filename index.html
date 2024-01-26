@@ -5,6 +5,12 @@
   <title>Pizza Legends</title>
   <link href="/styles/global.css" type="text/css" rel="stylesheet">
   <link href="/styles/TextMessages.css" type="text/css" rel="stylesheet">
+  <link href="/styles/SceneTransition.css" type="text/css" rel="stylesheet">
+  <!-- Battle CSS -->
+  <link rel="stylesheet" href="styles/Battle.css">
+  <link rel="stylesheet" href="styles/Combatant.css">
+  <link rel="stylesheet" href="styles/SubmissionMenu.css">
+  <link rel="stylesheet" href="styles/Team.css">
 </head>
 
 <body>
@@ -12,8 +18,11 @@
     <canvas class="game-canvas" width="352" height="198"></canvas>
   </div>
 
+  <!-- content -->
+  <script src="content/pizzas.js"></script>
+  <script src="content/actions.js"></script>
+
   <!-- Scripts -->
-  <!-- <script src="/Overworld.js"></script> -->
   <script src="/utils.js"></script>
   <script src="/DirectionInput.js"></script>
   <script src="/Overworld.js"></script>
@@ -24,8 +33,20 @@
   <script src="/OverworldEvent.js"></script>
   <script src="/TextMessage.js"></script>
   <script src="/KeyPressListener.js"></script>
-  <script src="/init.js"></script>
+  <script src="/RevealingText.js"></script>
+  <script src="/SceneTransition.js"></script>
+  
+  <!-- Battle -->
+  <script src="/Battle/Battle.js"></script>
+  <script src="/Battle/Combatant.js"></script>
+  <script src="/Battle/Team.js"></script>
+  <script src="/Battle/SubmissionMenu.js"></script>
+  <script src="/Battle/BattleEvent.js"></script>
+  <script src="/Battle/TurnCycle.js"></script>
+  <script src="/Battle/BattleAnimations.js"></script>
 
+
+  <script src="/init.js"></script>
 </body>
 
 </html>

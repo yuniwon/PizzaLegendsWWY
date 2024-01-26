@@ -14,17 +14,17 @@ class GameObject {
     this.behaviorLoop = config.behaviorLoop || []; // 캐릭터의 행동을 담은 배열
     this.behaviorLoopIndex = 0; // 행동 배열의 인덱스
 
+    this.talking = config.talking || []; // 캐릭터의 대화를 담은 배열
+
   }
   mount(map){ // 게임 오브젝트를 맵에 등록하는 함수
-    console.log("mount");
+    // console.log("mount");
     this.isMounted = true;
     map.addwall(this.x,this.y);
 
     // 정해진 행동루프에 따라 행동루프를 시작함
     setTimeout(() => {
-      // if(this.behaviorLoop.length > 0){
         this.BehaviorLoopEvent(map);
-      // }
     },10);
   }  
   
@@ -33,7 +33,7 @@ class GameObject {
   // 비동기 행동 루프 함수 ------------------------------------------ // npc들은 비동기 행동 루프를 가짐
   async BehaviorLoopEvent(map){
 
-      //더 중요한 컷씬이 있거나 아무것도 할 수 있는 구성이 없다면 아무것도 하지 마세요.
+      // 멈춰야 될 상황이라면 함수를 종료
       if(map.isCutScenePlaying || this.behaviorLoop.length === 0 || this.isStanding){ // 만약 컷씬이 실행중이거나 행동 루프가 없다면 + 서있는 상태라면
         return; // 함수를 종료
       };

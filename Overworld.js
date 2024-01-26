@@ -15,11 +15,11 @@ class Overworld {
 
       const cameraPerson = this.map.gameObjects.hero; // 카메라가 따라다닐 사람 // hero의 속성을 그대로 가져옴
 
-      // 게임 오브젝트 업데이트를 진행한 후 맵의 모든 게임 오브젝트를 그림
+      // 게임 오브젝트 업데이트를 진행
       Object.values(this.map.gameObjects).forEach(object => {
         object.update({
-          arrow: this.DirectionInput.direction,
-          map: this.map,
+          arrow: this.DirectionInput.direction, // 각오브젝트의 방향을 업데이트
+          map: this.map, // 변경된 맵을 업데이트
         })
         // console.log(object);
       })
@@ -49,21 +49,34 @@ class Overworld {
     step();
   }
 
-  bindActionInput() {
+  bindActionInput() { // 엔터 입력받는 함수
     new KeyPressListener("Enter", () =>{
       // 말 걸 캐릭터가 존재하는지
       this.map.checkForActionCutscene();
     })
   };
 
+  bindHeroPositionCheck() { // 플레이어의 위치가 변경되었는지 확인하는 함수
+    document.addEventListener("PersonWalkingComplete", (e) => { // PersonWalkingComplete 이벤트는 모든 오브젝트가 움직임을 완료했을 때 발생
+      if(e.detail.whoId === "hero"){ // 그 중에서 플레이어가 움직임을 완료했다면
+        // console.log("플레이어의 움직임이 변경되었음");
+        this.map.checkForFootstepCutscene(); // 해당 지역 컷신이벤트가 있는지 확인
+      }
+    });
+  };
+
+  stratMap(mapConfig){ // 맵을 시작하는 함수
+    this.map = new OverworldMap(mapConfig);
+    this.map.overworld = this;
+    this.map.mountObject();
+  
+  }
  // 게임을 초기화하는 함수 ------------------------------------------
   init() { // 게임을 시작하면 가장먼저 실행 됨
     // 게임 맵 오브젝트 생성
-    this.map = new OverworldMap(window.OverworldMaps.DemoRoom);
-    this.map.mountObject();
-
-    this.bindActionInput();
-
+    this.stratMap(window.OverworldMaps.Kitchen);
+    this.bindActionInput(); // 엔터를 입력받는 메서드 // 말 걸 상대가 있으면 대화이벤트가 생성됨
+    this.bindHeroPositionCheck(); // 플레이어의 위치가 변경되었는지 확인하는 메서드 // 플레이어의 위치에따라 이벤트를 발생시킴
     // 인풋을 받는 오브젝트 생성
     this.DirectionInput = new DirectionInput();
     this.DirectionInput.init();
@@ -71,13 +84,13 @@ class Overworld {
     this.startGameLoop();
 
     // 이벤트 컷신
-    // this.map.startCutScene([
-    //   {who: "hero", type: "walk", direction: "Down",},
-    //   {who: "hero", type: "walk", direction: "Down",},
-    //   {who: "npcA", type: "walk", direction: "Left",},
-    //   {who: "npcA", type: "walk", direction: "Left",},
-    //   {who: "npcA", type: "stand", direction: "Up", time: 800},
-    //   {type: "TextMessage", text: "넌 못지나간다!!"},
-    // ]);
+    this.map.startCutScene([
+
+      {type: "Battle"}, // 전투
+      // {type: "changeMap", map: "DemoRoom"}, // 맵을 바꿀수 있음
+    //   {type: "TextMessage", text: "첫 메세지입니다!"}, // 메세지를 출력할 수 있음
+    //   {who: "hero", type: "walk", direction: "Down",}, // 캐릭터를 움직일 수 있음
+    //   {who: "npcA", type: "stand", direction: "Up", time: 800}, // 방향을 바꿀수 있음
+    ]);
   }
 }
