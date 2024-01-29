@@ -208,6 +208,8 @@ window.OverworldMaps = {
         {
           events: [
             {type: "TextMessage", text: "해냈구나!", faceHero: "npcB"},
+            {type: "TextMessage", text: "일단 싸우자!", faceHero: "npcB"},
+            {type: "Battle"}, // 전투
             // {who:"npcB", type: "stand", direction: "Down",time : 500},
 
           ]
