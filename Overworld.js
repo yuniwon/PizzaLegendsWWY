@@ -87,7 +87,7 @@ class Overworld {
     this.map.startCutScene([
 
       {type: "TextMessage", text: "발표 시작합니다."}, // 메세지를 출력할 수 있음
-      {type: "Battle"}, // 전투
+      // {type: "Battle"}, // 전투
       // {type: "changeMap", map: "DemoRoom"}, // 맵을 바꿀수 있음
     //   {who: "hero", type: "walk", direction: "Down",}, // 캐릭터를 움직일 수 있음
     //   {who: "npcA", type: "stand", direction: "Up", time: 800}, // 방향을 바꿀수 있음
