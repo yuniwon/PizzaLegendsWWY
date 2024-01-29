@@ -164,7 +164,7 @@ window.OverworldMaps = {
       [utils.asGridCords(7, 7)]: true,
       [utils.asGridCords(8, 7)]: true,
     },
-    cutsceneSpace: {
+    cutsceneSpace: { // 지역 컷씬
       [utils.asGridCords(7, 4)]: [
         {
           events: [
