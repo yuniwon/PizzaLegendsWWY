@@ -11,7 +11,7 @@ window.Pizzas = {
     name: "사시미 검객",
     type: PizzaTypes.spicy,
     src: "./images/characters/pizzas/s001.png",
-    icon: "/images/icons/spicy.png",
+    icon: "./images/icons/spicy.png",
     actions: ["damage1"],
   },
   "v001": {
