@@ -8,7 +8,7 @@ class GameObject {
     this.direction = config.direction || "Down"; // 방향
     this.sprite = new Sprite({ // 스프라이트 생성
       gameObject: this, // 스프라이트가 속한 게임 오브젝트
-      src: config.src || "/images/characters/people/hero.png", // 스프라이트 이미지 // config.src가 없으면 기본값으로 설정
+      src: config.src || "./images/characters/people/hero.png", // 스프라이트 이미지 // config.src가 없으면 기본값으로 설정
     });
 
     this.behaviorLoop = config.behaviorLoop || []; // 캐릭터의 행동을 담은 배열
